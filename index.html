@@ -506,7 +506,7 @@
         <h2>Resumen por item</h2>
         <div class="tbl-wrap">
         <table>
-          <thead><tr><th>Item</th><th class="num">Total general</th><th class="num">Descontado</th><th class="num">Pendiente</th></tr></thead>
+          <thead><tr><th>Item</th><th class="num">Total general</th><th class="num">Total (monto + IGV) × total general</th><th class="num">Descontado</th><th class="num">Pendiente</th></tr></thead>
           <tbody id="tbl-resumen-item"></tbody>
         </table>
         </div>
@@ -514,7 +514,7 @@
       </div>
       <div class="card" style="margin-top:20px;">
         <h2>Monto por día</h2>
-        <div class="hint" style="margin:-4px 0 12px;">Monto registrado cada día y el total acumulado hasta esa fecha.</div>
+        <div class="hint" style="margin:-4px 0 12px;">Total (monto + IGV) × total general registrado cada día y el acumulado hasta esa fecha.</div>
         <div id="chart-dia"></div>
       </div>
       <div class="card" style="margin-top:20px;">
@@ -829,12 +829,13 @@ function fechaRegistro(p){
   return f[0] || '';
 }
 
-// Total general = Monto original x Cantidad guardada original
+// Total (monto + IGV) x total general:  p. ej. (2.29 + 0.4122) = 2.7022  x  4,500 = 12,159.90
 function totalGeneralProducto(p){
   const hist = despachosDeProducto(p.id);
   const cantIni = redondear(p.stock + hist.reduce((a,d)=>a+d.cantidad,0));
   const montoIni = tieneTotal(p) ? totalSaldo(p) + hist.reduce((a,d)=>a+(d.total||0),0) : 0;
-  return Math.round(montoIni * cantIni * 100) / 100;
+  const conIgv = Math.round(montoIni * (1 + 0.18) * 10000) / 10000;
+  return Math.round(conIgv * cantIni * 100) / 100;
 }
 
 function renderDespachoStock(){
@@ -1254,6 +1255,7 @@ function renderResumenItem(){
       <tr>
         <td>${escapeHtml(p.nombre)}</td>
         <td class="num">${fmt(totalIngresado)}</td>
+        <td class="num"><b>S/ ${fmtMoney(totalGeneralProducto(p))}</b></td>
         <td class="num">${fmt(descontado)}</td>
         <td class="num ${pendiente<=0 ? 'stock-low' : 'stock-ok'}">${fmt(pendiente)}</td>
       </tr>
