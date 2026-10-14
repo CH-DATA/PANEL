@@ -347,11 +347,17 @@
   table.xl td.acc .btn.sm{ padding:6px 9px; font-size:11px; }
   .icon-btn{ width:28px; height:28px; }
 
-  .monto-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+  .monto-row{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:14px; }
+  .monto-row.cant-row{ grid-template-columns:1fr 2fr; }
+  @media (max-width:640px){ .monto-row, .monto-row.cant-row{ grid-template-columns:1fr; } }
+  input.calc.total{ color:#fff; background:linear-gradient(90deg, var(--accent-2), var(--accent-soft)); border-color:transparent; }
   .monto-row label{ margin-top:0; }
   input.calc{ background:#eef7fd; color:var(--accent-2); font-family:var(--mono); font-weight:700; cursor:default; }
   .btn-excel{ display:inline-flex; align-items:center; gap:8px; width:auto !important; flex:none; padding:10px 18px; }
   .dkpis2{ grid-template-columns:repeat(2,1fr); margin-bottom:20px; }
+  .dia-grid{ grid-template-columns:repeat(auto-fill, minmax(165px, 1fr)); }
+  .dia-tile .desc{ font-size:15px; }
+  .dia-tile .acum{ font-family:var(--mono); font-size:12px; font-weight:700; color:var(--text); margin-top:7px; }
 </style>
 </head>
 <body>
@@ -413,13 +419,25 @@
             <input id="p-monto" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
           </div>
           <div>
-            <label>Monto + IGV 18% (S/)</label>
+            <label>Monto (S/) × 18% (IGV)</label>
             <input id="p-monto-igv" type="text" readonly tabindex="-1" placeholder="0.00" class="calc">
+          </div>
+          <div>
+            <label>Total (monto + IGV)</label>
+            <input id="p-monto-total" type="text" readonly tabindex="-1" placeholder="0.00" class="calc total">
           </div>
         </div>
         <div class="hint" id="p-monto-hint"></div>
-        <label>Total general</label>
-        <input id="p-cantidad" type="text" inputmode="decimal" placeholder="0">
+        <div class="monto-row cant-row">
+          <div>
+            <label>Total general</label>
+            <input id="p-cantidad" type="text" inputmode="decimal" placeholder="0">
+          </div>
+          <div>
+            <label>Total (monto + IGV) × total general</label>
+            <input id="p-total-final" type="text" readonly tabindex="-1" placeholder="0.00" class="calc total">
+          </div>
+        </div>
         <datalist id="dl-unidades">
           <option value="UND"><option value="CAJA"><option value="KG"><option value="M"><option value="PAR"><option value="GLB"><option value="LT">
         </datalist>
@@ -448,7 +466,7 @@
         <table class="xl">
           <thead>
             <tr><th class="g1" colspan="7">Registro</th><th class="g2" colspan="4">Registro 2</th><th class="gx" rowspan="2">Acciones</th></tr>
-            <tr><th>Fecha</th><th>Cliente</th><th>Item</th><th>Orden de compra</th><th class="r">Monto</th><th class="r">Monto + IGV 18%</th><th class="r">Total general</th><th class="s2 sep">Fecha</th><th class="s2">Guía</th><th class="s2 r">Cantidad de descontar</th><th class="s2 r">Diferencia</th></tr>
+            <tr><th>Fecha</th><th>Cliente</th><th>Item</th><th>Orden de compra</th><th class="r">Monto</th><th class="r">IGV 18%</th><th class="r">Total general</th><th class="s2 sep">Fecha</th><th class="s2">Guía</th><th class="s2 r">Cantidad de descontar</th><th class="s2 r">Diferencia</th></tr>
           </thead>
           <tbody id="tbl-despacho-stock"></tbody>
         </table>
@@ -495,8 +513,8 @@
         <div class="empty" id="resumen-item-empty" style="display:none;">Aún no hay productos registrados.</div>
       </div>
       <div class="card" style="margin-top:20px;">
-        <h2>Descontado por día</h2>
-        <div class="hint" style="margin:-4px 0 12px;">Cuánto se descontó cada día y el total acumulado hasta esa fecha.</div>
+        <h2>Monto por día</h2>
+        <div class="hint" style="margin:-4px 0 12px;">Monto registrado cada día y el total acumulado hasta esa fecha.</div>
         <div id="chart-dia"></div>
       </div>
       <div class="card" style="margin-top:20px;">
@@ -637,11 +655,21 @@ function attachMilesMask(id){
 attachMilesMask('p-cantidad');
 attachMilesMask('p-monto');
 const IGV = 0.18;
-function conIGV(m){ return Math.round(m * (1 + IGV) * 100) / 100; }
-$('p-monto').addEventListener('input', ()=>{
+function conIGV(m){ return Math.round(m * IGV * 100) / 100; }   // monto x 18%
+function actualizarCalculoMonto(){
   const m = numVal('p-monto');
-  $('p-monto-igv').value = (isFinite(m) && m > 0) ? fmtMoney(conIGV(m)) : '';
-});
+  const c = numVal('p-cantidad');
+  const ok = isFinite(m) && m > 0;
+  const r4 = v => Math.round(v * 10000) / 10000;
+  const f4 = v => Number(v).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:4});
+  const igv = ok ? r4(m * IGV) : 0;                      // 2.29 x 18% = 0.4122
+  const totalUnit = ok ? r4(m + igv) : 0;                // 2.29 + 0.4122 = 2.7022
+  $('p-monto-igv').value   = ok ? f4(igv) : '';
+  $('p-monto-total').value = ok ? f4(totalUnit) : '';
+  $('p-total-final').value = (ok && isFinite(c) && c > 0) ? f4(r4(totalUnit * c)) : '';   // 2.7022 x 4,500
+}
+$('p-monto').addEventListener('input', actualizarCalculoMonto);
+$('p-cantidad').addEventListener('input', actualizarCalculoMonto);
 attachMilesMask('d-cantidad');
 attachMilesMask('e-cantidad');
 
@@ -761,7 +789,7 @@ async function agregarProducto(){
 
   await saveProductos();
   await saveIngresos();
-  $('p-fecha').value = fechaHoy(); $('p-cliente').value=''; $('p-nombre').value=''; $('p-oc').value=''; $('p-cantidad').value=''; $('p-monto').value=''; $('p-monto-igv').value='';
+  $('p-fecha').value = fechaHoy(); $('p-cliente').value=''; $('p-nombre').value=''; $('p-oc').value=''; $('p-cantidad').value=''; $('p-monto').value=''; $('p-monto-igv').value=''; $('p-monto-total').value=''; $('p-total-final').value='';
   renderDespachoStock(); renderHistorial();
 }
 
@@ -1088,7 +1116,10 @@ function monthLabel(key){
 }
 
 function renderHistorialFilters(){
-  const meses = Array.from(new Set(despachos.map(d=>monthKey(d.fechaGuia)))).sort().reverse();
+  const meses = Array.from(new Set([
+    ...despachos.map(d=>monthKey(d.fechaGuia)),
+    ...productos.map(p=>monthKey(fechaRegistro(p)))
+  ])).sort().reverse();
   const selMes = $('h-mes');
   const curMes = selMes.value;
   selMes.innerHTML = '<option value="">Todos los meses</option>' +
@@ -1097,28 +1128,31 @@ function renderHistorialFilters(){
 
   const selProd = $('h-producto');
   const curProd = selProd.value;
-  const nombres = Array.from(new Set(despachos.map(d=>d.item))).sort();
+  const nombres = Array.from(new Set([...despachos.map(d=>d.item), ...productos.map(p=>p.nombre)].filter(Boolean))).sort();
   selProd.innerHTML = '<option value="">Todos los productos</option>' +
     nombres.map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join('');
   if(nombres.includes(curProd)) selProd.value = curProd;
 
   const selCli = $('h-cliente');
   const curCli = selCli.value;
-  const clientes = Array.from(new Set(despachos.map(d=>d.empresa).filter(Boolean))).sort();
+  const clientes = Array.from(new Set([...despachos.map(d=>d.empresa), ...productos.map(p=>p.cliente)].filter(Boolean))).sort();
   selCli.innerHTML = '<option value="">Todos los clientes</option>' +
     clientes.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
   if(clientes.includes(curCli)) selCli.value = curCli;
 }
 
-function renderChartDia(lista){
+function renderChartDia(){
   const box = $('chart-dia');
 
-  // KPIs de stock (respetan el filtro de producto, igual que "Resumen por item")
-  const filtroProd = $('h-producto').value;
-  const prods = filtroProd ? productos.filter(p=>p.nombre===filtroProd) : productos;
-  // Monto total = Monto x Cantidad guardada de cada registro
+  // productos que cumplen los filtros (mes, cliente, item)
+  const fMes = $('h-mes').value, fProd = $('h-producto').value, fCli = $('h-cliente').value;
+  const prods = productos.filter(p =>
+    (!fMes  || monthKey(fechaRegistro(p)) === fMes) &&
+    (!fProd || p.nombre === fProd) &&
+    (!fCli  || (p.cliente||'') === fCli));
+
+  // KPIs
   const montoTotal = Math.round(prods.reduce((t,p)=>t+totalGeneralProducto(p),0) * 100) / 100;
-  // Total de clientes distintos
   const totalClientes = new Set(prods.map(p=>(p.cliente||'').trim().toLowerCase()).filter(Boolean)).size;
   const kpisHtml = `
     <div class="dkpis dkpis2">
@@ -1126,17 +1160,21 @@ function renderChartDia(lista){
       <div class="dkpi desc"><div class="v">${totalClientes}</div><div class="l">Total de clientes</div></div>
     </div>`;
 
+  // monto de cada día (según la fecha de registro)
   const totales = {};
-  lista.forEach(d=>{
-    const k = d.fechaGuia || 'Sin fecha';
-    totales[k] = (totales[k]||0) + d.cantidad;
+  prods.forEach(p=>{
+    const v = totalGeneralProducto(p);
+    if(!(v > 0)) return;
+    const k = fechaRegistro(p) || 'Sin fecha';
+    totales[k] = (totales[k]||0) + v;
   });
   const dias = Object.keys(totales).sort();
   if(!dias.length){ box.innerHTML = kpisHtml + '<div class="empty">Sin datos para graficar.</div>'; return; }
 
-  const totalGeneral = redondear(dias.reduce((s,k)=>s+totales[k],0));
+  const money = v => Math.round(v*100)/100;
+  const axis = v => Number(v).toLocaleString('en-US',{maximumFractionDigits:0});
   let acumulado = 0;
-  const filas = dias.map(k=>{ acumulado = redondear(acumulado + totales[k]); return { fecha:k, valor: redondear(totales[k]), acumulado }; });
+  const filas = dias.map(k=>{ acumulado = money(acumulado + totales[k]); return { fecha:k, valor: money(totales[k]), acumulado }; });
   const ultimas = filas.slice(-14);
   const n = ultimas.length;
   const maxValor = Math.max(...ultimas.map(f=>f.valor)) || 1;
@@ -1145,8 +1183,8 @@ function renderChartDia(lista){
   const h = new Date();
   const hoy = h.getFullYear()+'-'+String(h.getMonth()+1).padStart(2,'0')+'-'+String(h.getDate()).padStart(2,'0');
 
-  // ----- gráfico SVG: barras = descuento del día (eje izq.), línea = total acumulado (eje der.) -----
-  const W=720, H=240, L=42, R=46, T=22, B=30;
+  // ----- gráfico SVG: barras = monto del día (eje izq.), línea = monto acumulado (eje der.) -----
+  const W=720, H=250, L=58, R=62, T=24, B=32;
   const iw=W-L-R, ih=H-T-B;
   const niceMax = v=>{ const p=Math.pow(10,Math.floor(Math.log10(v))); const m=v/p; return (m<=1?1:m<=2?2:m<=5?5:10)*p; };
   const maxB = niceMax(Math.max(maxValor, 1));
@@ -1154,9 +1192,9 @@ function renderChartDia(lista){
   const yB = v => T + ih - (v/maxB)*ih;
   const yA = v => T + ih - (v/maxA)*ih;
   const bw = iw/n;
-  const barW = Math.min(44, bw*0.55);
+  const barW = Math.min(52, bw*0.55);
   const xC = i => L + bw*(i+0.5);
-  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Descuento por día y total acumulado">
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Monto por día y monto acumulado">
     <defs>
       <linearGradient id="gbarDia" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#0284c7"/></linearGradient>
       <linearGradient id="gareaDia" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b2438" stop-opacity="0.10"/><stop offset="1" stop-color="#0b2438" stop-opacity="0"/></linearGradient>
@@ -1164,13 +1202,13 @@ function renderChartDia(lista){
   for(let i=0;i<=4;i++){
     const y = T + ih - ih*i/4;
     svg += `<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#cfe6f5" stroke-width="1" ${i? 'stroke-dasharray="3 4"' : ''}/>`;
-    svg += `<text x="${L-8}" y="${y+3.5}" text-anchor="end" font-size="10" fill="#0284c7" font-family="monospace">${fmt(maxB*i/4)}</text>`;
-    svg += `<text x="${W-R+8}" y="${y+3.5}" text-anchor="start" font-size="10" fill="#0b2438" font-family="monospace">${fmt(maxA*i/4)}</text>`;
+    svg += `<text x="${L-8}" y="${y+3.5}" text-anchor="end" font-size="10" fill="#0284c7" font-family="monospace">${axis(maxB*i/4)}</text>`;
+    svg += `<text x="${W-R+8}" y="${y+3.5}" text-anchor="start" font-size="10" fill="#0b2438" font-family="monospace">${axis(maxA*i/4)}</text>`;
   }
   ultimas.forEach((f,i)=>{
     const y = yB(f.valor), hh = Math.max(2, T+ih-y);
     svg += `<rect x="${xC(i)-barW/2}" y="${T+ih-hh}" width="${barW}" height="${hh}" rx="5" fill="url(#gbarDia)"/>`;
-    svg += `<text x="${xC(i)}" y="${T+ih-hh-5}" text-anchor="middle" font-size="10" font-weight="700" fill="#0284c7" font-family="monospace">${fmt(f.valor)}</text>`;
+    svg += `<text x="${xC(i)}" y="${T+ih-hh-6}" text-anchor="middle" font-size="10" font-weight="700" fill="#0284c7" font-family="monospace">${fmtMoney(f.valor)}</text>`;
   });
   const pts = ultimas.map((f,i)=>[xC(i), yA(f.acumulado)]);
   if(n>1){
@@ -1180,29 +1218,28 @@ function renderChartDia(lista){
   }
   pts.forEach((q,i)=>{
     svg += `<circle cx="${q[0]}" cy="${q[1]}" r="${i===n-1?5:3.5}" fill="#fff" stroke="#0b2438" stroke-width="2"/>`;
-    if(i===n-1) svg += `<text x="${q[0]}" y="${q[1]-10}" text-anchor="middle" font-size="11" font-weight="700" fill="#0b2438" font-family="monospace">${fmt(ultimas[i].acumulado)}</text>`;
-    svg += `<text x="${q[0]}" y="${H-10}" text-anchor="middle" font-size="10" fill="#5c7c93" font-family="monospace">${escapeHtml(diaMes(ultimas[i].fecha))}</text>`;
+    svg += `<text x="${q[0]}" y="${H-10}" text-anchor="middle" font-size="10.5" font-weight="600" fill="#3f6178" font-family="monospace">${escapeHtml(diaMes(ultimas[i].fecha))}</text>`;
   });
   svg += `</svg>`;
 
   box.innerHTML = kpisHtml + `
     <div class="dchart-head">
-      <div class="t">Descontado en el rango filtrado: <b>${fmt(totalGeneral)}</b>${n<filas.length ? ' · mostrando los últimos '+n+' días' : ''}</div>
-      <div class="dleg"><span><i class="sq"></i>Descuento del día (eje izq.)</span><span><i class="ln"></i>Total acumulado (eje der.)</span></div>
+      <div class="t">Monto en el rango filtrado: <b>S/ ${fmtMoney(montoTotal)}</b>${n<filas.length ? ' · mostrando los últimos '+n+' días' : ''}</div>
+      <div class="dleg"><span><i class="sq"></i>Monto del día (eje izq.)</span><span><i class="ln"></i>Monto acumulado (eje der.)</span></div>
     </div>
     <div class="dchart">${svg}</div>
     <div class="dia-grid">
     ` + ultimas.map((f,i)=>`
       <div class="dia-tile ${i===n-1?'last':''}">
         <div class="fecha">${escapeHtml(fechaCorta(f.fecha))}${f.fecha===hoy?'<span class="badge">Hoy</span>':''}</div>
-        <div class="desc">${fmt(f.valor)}<small>Descuento</small></div>
+        <div class="desc">S/ ${fmtMoney(f.valor)}<small>Monto del día</small></div>
         <div class="mini"><i style="width:${f.valor/maxValor*100}%"></i></div>
-        <div class="acum">${fmt(f.acumulado)}<small>Total acum.</small></div>
+        <div class="acum">S/ ${fmtMoney(f.acumulado)}<small>Acumulado</small></div>
       </div>
     `).join('') + `
     </div>`;
   const cont = box.querySelector('.dchart');
-  if(cont) cont.scrollLeft = cont.scrollWidth; // en celular, empezar viendo los días más recientes
+  if(cont) cont.scrollLeft = cont.scrollWidth;
 }
 
 function renderResumenItem(){
@@ -1238,7 +1275,7 @@ function renderHistorial(){
   if(filtroCli) lista = lista.filter(d=>d.empresa===filtroCli);
   lista.sort((a,b)=> new Date(b.fechaGuia||0) - new Date(a.fechaGuia||0));
 
-  renderChartDia(lista);
+  renderChartDia();
 
   const body = $('historial-body');
   if(!lista.length){
@@ -1354,7 +1391,7 @@ function descargarExcelRegistro(){
         <th colspan="4" style="${th}background:#38bdf8;color:#08293d;font-size:14pt;">REGISTRO 2</th>
       </tr>
       <tr>
-        ${['FECHA','CLIENTE','ITEM','ORDEN DE COMPRA','MONTO','MONTO + IGV 18%','TOTAL GENERAL'].map(h=>`<th style="${th}background:#eef7fd;">${h}</th>`).join('')}
+        ${['FECHA','CLIENTE','ITEM','ORDEN DE COMPRA','MONTO','IGV 18%','TOTAL GENERAL'].map(h=>`<th style="${th}background:#eef7fd;">${h}</th>`).join('')}
         ${['FECHA','GUIA','CANTIDAD DE DESCONTAR','DIFERENCIA'].map(h=>`<th style="${th}background:#e1f2fc;">${h}</th>`).join('')}
       </tr>
       ${rows}
