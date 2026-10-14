@@ -220,9 +220,9 @@
 
 
   /* Descontado por día: KPIs + gráfico + cuadritos */
-  .dkpis{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:12px; }
+  .dkpis{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:12px; }
   .dkpi{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; position:relative; overflow:hidden; }
-  .dkpi .v{ font-family:var(--mono); font-size:22px; font-weight:700; line-height:1.05; color:var(--text); }
+  .dkpi .v{ font-family:var(--mono); font-size:26px; font-weight:700; line-height:1.05; color:var(--text); }
   .dkpi .l{ font-size:11px; color:var(--text-dim); margin-top:5px; letter-spacing:0.2px; font-weight:500; }
   .dkpi.desc .v{ color:var(--accent-2); }
   .dkpi.pend .v{ color:var(--ok); }
@@ -245,13 +245,13 @@
   .dchart{ overflow-x:auto; margin-bottom:14px; }
   .dchart svg{ display:block; min-width:520px; width:100%; height:auto; }
 
-  .dia-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:10px; }
+  .dia-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(118px, 1fr)); gap:10px; }
   .dia-tile{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 12px 11px 14px; position:relative; overflow:hidden; }
   .dia-tile::before{ content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(180deg, var(--accent-2), var(--accent-soft)); }
   .dia-tile.last{ border-color:var(--accent); box-shadow:0 4px 14px var(--glow); }
   .dia-tile .fecha{ font-family:var(--mono); font-size:11px; color:var(--text-dim); margin-bottom:6px; display:flex; align-items:center; gap:6px; }
   .dia-tile .badge{ font-size:9px; font-weight:700; letter-spacing:0.4px; text-transform:uppercase; color:#fff; background:var(--accent); padding:1px 6px; border-radius:20px; }
-  .dia-tile .desc{ font-family:var(--mono); font-size:17px; font-weight:700; color:var(--accent-2); line-height:1.1; }
+  .dia-tile .desc{ font-family:var(--mono); font-size:20px; font-weight:700; color:var(--accent-2); line-height:1.1; }
   .dia-tile small{ display:block; font-size:9.5px; font-weight:500; color:var(--text-dim); letter-spacing:0.3px; text-transform:uppercase; margin-top:2px; font-family:var(--mono); }
   .dia-tile .mini{ height:4px; border-radius:4px; background:rgba(14,165,233,0.10); margin-top:7px; overflow:hidden; }
   .dia-tile .mini i{ display:block; height:100%; border-radius:4px; background:linear-gradient(90deg, var(--accent-2), var(--accent-soft)); }
@@ -346,72 +346,12 @@
   table.xl td.acc .row-actions{ gap:5px; }
   table.xl td.acc .btn.sm{ padding:6px 9px; font-size:11px; }
   .icon-btn{ width:28px; height:28px; }
-  /* con muchos registros la tabla crece a la derecha: Acciones queda fija */
-  table.xl td.acc{ position:sticky; right:0; background:#fff; box-shadow:-6px 0 10px -6px rgba(14,116,180,0.18); z-index:2; }
-  table.xl > tbody > tr.main:hover > td.acc{ background:#f4fbff; }
-  table.xl thead th.acc-h{ position:sticky; right:0; z-index:3; }
-  table.xl td.sep{ min-width:78px; }
 
-  /* ===== TABLA DE DESPACHOS: diseño profesional ===== */
-  .tbl-wrap{ border-radius:14px; }
-  table.xl{ font-size:13px; border:1px solid #d3e6f3; border-radius:14px; box-shadow:0 10px 30px rgba(8,50,80,0.10); }
-  table.xl thead th{ white-space:nowrap; }
-  /* fila de grupos */
-  table.xl thead th.g1{ background:linear-gradient(100deg,#071b2b,#0c3a52); padding:14px 20px; font-size:11.5px; letter-spacing:2.6px; }
-  table.xl thead th.g2{ padding:14px 20px; font-size:11.5px; letter-spacing:2.6px; border-left:3px solid #fff; }
-  table.xl thead th.g2.bk0{ background:linear-gradient(100deg,#0369a1,#0ea5e9); }
-  table.xl thead th.g2.bk1{ background:linear-gradient(100deg,#0f766e,#14b8a6); }
-  table.xl thead th.gx{ background:linear-gradient(100deg,#071b2b,#0c3a52); }
-  /* fila de títulos de columna */
-  table.xl thead tr + tr th{
-    background:#f1f8fd; color:#4d6f87; font-size:10.5px; font-weight:700; letter-spacing:.8px;
-    padding:12px 14px; border-bottom:2px solid #d3e6f3;
-  }
-  table.xl thead tr + tr th.s2.bk0{ background:#e6f4fc; color:#0369a1; }
-  table.xl thead tr + tr th.s2.bk1{ background:#e3f6f3; color:#0f766e; }
-  table.xl thead tr + tr th.sep, table.xl td.sep{ border-left:3px solid #fff; }
-  /* celdas */
-  table.xl > tbody > tr.main > td{ padding:16px 14px; border-bottom:1px solid #e6f1f8; vertical-align:middle; }
-  table.xl > tbody > tr.main:nth-child(even) > td{ background:#fafdff; }
-  table.xl > tbody > tr.main > td.bk0{ background:rgba(14,165,233,0.045); }
-  table.xl > tbody > tr.main > td.bk1{ background:rgba(20,184,166,0.055); }
-  table.xl > tbody > tr.main:hover > td{ background:#eef8ff; }
-  table.xl > tbody > tr.main:hover > td.bk1{ background:#e9f8f5; }
-  table.xl td.fecha{ font-size:12px; color:#5c7c93; font-weight:600; }
-  table.xl td.cli{ font-weight:600; color:#0b2438; }
-  table.xl td.item{ font-weight:700; font-size:13.5px; }
-  table.xl .monto{ font-size:13px; }
-  table.xl .qty{ min-width:56px; padding:5px 13px; font-size:13px; }
-  /* guía, descuento y saldo como chips */
-  .chip-guia{ display:inline-block; font-family:var(--mono); font-size:11.5px; font-weight:700; color:#0b2438; background:#fff; border:1px solid #cfe0ec; padding:3px 9px; border-radius:6px; letter-spacing:.3px; }
-  .nada{ color:#b5cfdf; }
-  .menos{ display:inline-block; font-family:var(--mono); font-weight:700; font-size:12.5px; color:#b4233c; background:rgba(224,51,79,0.09); border:1px solid rgba(224,51,79,0.2); padding:3px 10px; border-radius:20px; white-space:nowrap; }
-  .saldo{ display:inline-block; font-family:var(--mono); font-weight:700; font-size:12.5px; color:#047857; background:rgba(14,168,126,0.11); border:1px solid rgba(14,168,126,0.25); padding:3px 11px; border-radius:20px; min-width:44px; text-align:center; }
-  .saldo.low{ color:#b4233c; background:rgba(224,51,79,0.10); border-color:rgba(224,51,79,0.28); }
-  table.xl td.desc, table.xl td.dif{ background-clip:padding-box; }
-  /* anchos mínimos para que los títulos no se partan feo */
-  table.xl thead tr + tr th.s2{ min-width:96px; }
-  table.xl thead tr + tr th.s2.sep{ min-width:100px; }
-  /* acciones */
-  table.xl td.acc{ padding-left:16px; padding-right:16px; background:#fff; }
-  table.xl > tbody > tr.main:nth-child(even) > td.acc{ background:#fafdff; }
-  table.xl td.acc .btn.sm{ padding:7px 14px; font-size:11.5px; border-radius:8px; }
-  .icon-btn{ border-radius:8px; }
-
-  /* ===== FICHA DE EDICIÓN ===== */
-  .modal-box.ficha{ max-width:760px; background:#f3fbff; }
-  .ficha-sec{ background:#fff; border:1px solid #d3e6f3; border-radius:12px; margin-top:14px; overflow:hidden; box-shadow:0 4px 14px rgba(14,116,180,0.07); }
-  .ficha-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:9px 14px; color:#fff; font-size:11.5px; font-weight:700; letter-spacing:2.2px; text-transform:uppercase; background:linear-gradient(100deg,#0369a1,#0ea5e9); }
-  .ficha-sec.bk1 .ficha-head{ background:linear-gradient(100deg,#0f766e,#14b8a6); }
-  .ficha-sec.b-ing .ficha-head{ background:linear-gradient(100deg,#071b2b,#0c3a52); }
-  .ficha-head small{ font-weight:500; letter-spacing:.4px; text-transform:none; opacity:.8; font-size:11px; }
-  .ficha-head .icon-btn{ background:rgba(255,255,255,0.92); width:26px; height:26px; }
-  .ficha-body{ padding:12px 14px 14px; }
-  .fgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; }
-  .fgrid label{ margin:0 0 5px; }
-  .ficha-sec input[readonly]{ background:#eef7fd; font-family:var(--mono); font-weight:700; color:#047857; }
-  .ficha-sec input[readonly].neg{ color:var(--danger); }
-  .modal-box.ficha .hint{ margin-top:14px; }
+  .monto-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+  .monto-row label{ margin-top:0; }
+  input.calc{ background:#eef7fd; color:var(--accent-2); font-family:var(--mono); font-weight:700; cursor:default; }
+  .btn-excel{ display:inline-flex; align-items:center; gap:8px; width:auto !important; flex:none; padding:10px 18px; }
+  .dkpis2{ grid-template-columns:repeat(2,1fr); margin-bottom:20px; }
 </style>
 </head>
 <body>
@@ -467,10 +407,18 @@
         <input id="p-nombre" placeholder="Ej: Panel solar 450W">
         <label>Orden de compra</label>
         <input id="p-oc" placeholder="N° de orden de compra">
-        <label>Monto</label>
-        <input id="p-monto" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
+        <div class="monto-row">
+          <div>
+            <label>Monto (S/)</label>
+            <input id="p-monto" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
+          </div>
+          <div>
+            <label>Monto + IGV 18% (S/)</label>
+            <input id="p-monto-igv" type="text" readonly tabindex="-1" placeholder="0.00" class="calc">
+          </div>
+        </div>
         <div class="hint" id="p-monto-hint"></div>
-        <label>Cantidad guardada</label>
+        <label>Total general</label>
         <input id="p-cantidad" type="text" inputmode="decimal" placeholder="0">
         <datalist id="dl-unidades">
           <option value="UND"><option value="CAJA"><option value="KG"><option value="M"><option value="PAR"><option value="GLB"><option value="LT">
@@ -482,13 +430,26 @@
 
     <!-- DESPACHO VIEW -->
     <section class="view" id="view-despacho">
+      <div class="page-head">
+        <div>
+          <h1>Nuevo despacho</h1>
+          <p>REGISTRA UNA SALIDA Y DESCUENTA STOCK</p>
+        </div>
+        <button class="btn btn-excel" onclick="descargarExcelRegistro()">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>
+          Descargar Excel
+        </button>
+      </div>
       <div class="card">
         <h2>Productos guardados <span class="n" id="despacho-stock-count"></span></h2>
         <div class="msg" id="despacho-msg" style="margin:0 0 12px;"></div>
         <input id="d-buscar" placeholder="Buscar por cliente, item u orden de compra..." style="margin-bottom:14px;">
         <div class="tbl-wrap">
         <table class="xl">
-          <thead id="thead-despacho"></thead>
+          <thead>
+            <tr><th class="g1" colspan="7">Registro</th><th class="g2" colspan="4">Registro 2</th><th class="gx" rowspan="2">Acciones</th></tr>
+            <tr><th>Fecha</th><th>Cliente</th><th>Item</th><th>Orden de compra</th><th class="r">Monto</th><th class="r">Monto + IGV 18%</th><th class="r">Total general</th><th class="s2 sep">Fecha</th><th class="s2">Guía</th><th class="s2 r">Cantidad de descontar</th><th class="s2 r">Diferencia</th></tr>
+          </thead>
           <tbody id="tbl-despacho-stock"></tbody>
         </table>
         </div>
@@ -524,8 +485,18 @@
         </div>
       </div>
       <div class="card" style="margin-top:20px;">
-        <h2>Monto total por día</h2>
-        <div class="hint" style="margin:-4px 0 12px;">Monto (S/) registrado cada día en Registro y el total acumulado hasta esa fecha. No cambia al descontar.</div>
+        <h2>Resumen por item</h2>
+        <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Item</th><th class="num">Total general</th><th class="num">Descontado</th><th class="num">Pendiente</th></tr></thead>
+          <tbody id="tbl-resumen-item"></tbody>
+        </table>
+        </div>
+        <div class="empty" id="resumen-item-empty" style="display:none;">Aún no hay productos registrados.</div>
+      </div>
+      <div class="card" style="margin-top:20px;">
+        <h2>Descontado por día</h2>
+        <div class="hint" style="margin:-4px 0 12px;">Cuánto se descontó cada día y el total acumulado hasta esa fecha.</div>
         <div id="chart-dia"></div>
       </div>
       <div class="card" style="margin-top:20px;">
@@ -569,32 +540,23 @@
   </div>
 </div>
 
-<!-- Editar (ficha completa) -->
+<!-- Editar -->
 <div class="modal-overlay" id="modal-editar">
-  <div class="modal-box ficha">
+  <div class="modal-box">
     <button class="modal-close" onclick="cerrarModal('modal-editar')" aria-label="Cerrar">&times;</button>
-    <h2>Ficha del producto — <span id="e-titulo"></span></h2>
-    <div class="mini-kpis">
-      <div class="mini-kpi"><div class="v" id="ek-ing">0</div><div class="l">Cantidad guardada</div></div>
-      <div class="mini-kpi"><div class="v" id="ek-desc">0</div><div class="l">Total descontado</div></div>
-      <div class="mini-kpi" id="ek-saldo-box"><div class="v" id="ek-saldo">0</div><div class="l">Saldo</div></div>
+    <h2>Editar producto</h2>
+    <div class="fld"><label>Cliente</label><input id="e-cliente" placeholder="Nombre del cliente / proveedor"></div>
+    <div class="fld"><label>Item</label><input id="e-nombre"></div>
+    <div class="two-col fld">
+      <div><label>Total general</label><input id="e-cantidad" type="text" inputmode="decimal" placeholder="0"></div>
+      <div><label>UN</label><input id="e-un" list="dl-unidades" placeholder="UND, CAJA, KG..."></div>
     </div>
-
-    <div class="ficha-sec b-ing">
-      <div class="ficha-head"><span>Registro</span><small>Ingreso al stock</small></div>
-      <div class="ficha-body fgrid">
-        <div><label>Fecha</label><input id="e-fecha" type="date"></div>
-        <div><label>Cliente</label><input id="e-cliente" placeholder="Nombre del cliente"></div>
-        <div><label>Item</label><input id="e-nombre"></div>
-        <div><label>Orden de compra</label><input id="e-oc" placeholder="N° de orden de compra"></div>
-        <div><label>Monto (S/)</label><input id="e-monto" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off"></div>
-        <div><label>Cantidad guardada</label><input id="e-cantidad" type="text" inputmode="decimal" placeholder="0" autocomplete="off"></div>
-      </div>
+    <div class="fld"><label>Descripción</label><input id="e-descripcion"></div>
+    <div class="two-col fld">
+      <div><label>Unitario</label><input id="e-unitario" type="text" inputmode="decimal" placeholder="0.00"></div>
+      <div><label>Total</label><input id="e-total" type="text" readonly placeholder="0.00"></div>
     </div>
-
-    <div id="e-descuentos"></div>
-
-    <div class="hint">Corrige cualquier registro. Al guardar se recalculan los saldos y los montos de cada descuento.</div>
+    <div class="hint">El total general es el stock que queda hoy, después de los descuentos.</div>
     <div class="msg" id="e-msg"></div>
     <div class="modal-actions">
       <button class="btn secondary" onclick="cerrarModal('modal-editar')">Cancelar</button>
@@ -608,7 +570,7 @@
   <div class="modal-box narrow">
     <button class="modal-close" onclick="cerrarModal('modal-eliminar')" aria-label="Cerrar">&times;</button>
     <h2>Eliminar producto</h2>
-    <p style="font-size:13.5px; line-height:1.55; margin:0;">Vas a quitar <b id="del-nombre"></b> del stock (<span id="del-detalle"></span>). Los despachos que ya registraste se mantienen en el Dashboard.</p>
+    <p style="font-size:13.5px; line-height:1.55; margin:0;">Vas a quitar <b id="del-nombre"></b> del stock (<span id="del-detalle"></span>). También se borrarán sus descuentos del Dashboard. Esta acción no se puede deshacer.</p>
     <div class="modal-actions">
       <button class="btn secondary" onclick="cerrarModal('modal-eliminar')">Cancelar</button>
       <button class="btn danger-solid" onclick="confirmarEliminar()">Eliminar</button>
@@ -616,8 +578,6 @@
   </div>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 let productos = [];  // [{id, nombre, stock, un, descripcion, unitario}]
 let despachos = [];  // [{id, empresa, oc, item, cantidad, fechaGuia, guia, factura, operador, registrado}]
@@ -676,9 +636,14 @@ function attachMilesMask(id){
 }
 attachMilesMask('p-cantidad');
 attachMilesMask('p-monto');
+const IGV = 0.18;
+function conIGV(m){ return Math.round(m * (1 + IGV) * 100) / 100; }
+$('p-monto').addEventListener('input', ()=>{
+  const m = numVal('p-monto');
+  $('p-monto-igv').value = (isFinite(m) && m > 0) ? fmtMoney(conIGV(m)) : '';
+});
 attachMilesMask('d-cantidad');
 attachMilesMask('e-cantidad');
-attachMilesMask('e-monto');
 
 function setClock(){
   const now = new Date();
@@ -687,112 +652,60 @@ function setClock(){
 setClock();
 $('p-fecha').value = fechaHoy();
 
-// ---------- PERSISTENCE (Firebase Firestore + copia local) ----------
-const firebaseConfig = {
-  apiKey: "AIzaSyDGOApfG8WqNMiKC6Q7xc2UWhonvEbP1ss",
-  authDomain: "panel-1b7d0.firebaseapp.com",
-  projectId: "panel-1b7d0",
-  storageBucket: "panel-1b7d0.firebasestorage.app",
-  messagingSenderId: "300722147140",
-  appId: "1:300722147140:web:cf5b8c9d1a26eb96139111"
-};
-let db = null;
-try{
-  if(typeof firebase !== 'undefined'){
-    firebase.initializeApp(firebaseConfig);
-    db = firebase.firestore();
-  }
-}catch(e){ console.error('Firebase no pudo iniciar', e); }
-const COL = 'panel_despachos';
+// ---------- PERSISTENCE ----------
+const SHARED = true; // si hay storage en la nube, se comparte entre el equipo
+const CLOUD = (typeof window.storage !== 'undefined' && window.storage);
 const LS_PREFIX = 'panel_peru_despachos_';
-let nubeOk = false;
-
-function setEstado(txt, ok){
-  const el = $('clockStatus'); if(!el) return;
-  el.textContent = txt;
-  el.style.color = ok === false ? '#b4233c' : '';
-}
-function lsGet(key){ try{ return localStorage.getItem(LS_PREFIX + key); }catch(e){ return null; } }
-function lsSet(key, v){ try{ localStorage.setItem(LS_PREFIX + key, v); }catch(e){} }
 
 async function storageGet(key){
-  if(db){
-    try{
-      const snap = await db.collection(COL).doc(key).get();
-      nubeOk = true;
-      if(snap.exists) return { value: snap.data().value };
-      // primera vez en la nube: si hay datos locales, se suben
-      const local = lsGet(key);
-      if(local){ try{ await db.collection(COL).doc(key).set({ value: local, actualizado: new Date().toISOString() }); }catch(e){} }
-      return local ? { value: local } : null;
-    }catch(e){
-      console.error('Firestore (leer '+key+')', e);
-      nubeOk = false;
-      setEstado('sin conexión a Firebase: ' + (e.code || e.message), false);
-    }
+  if(CLOUD){
+    try{ return await window.storage.get(key, SHARED); }
+    catch(e){ /* si falla la nube, seguimos con localStorage */ }
   }
-  const raw = lsGet(key);
-  return raw ? { value: raw } : null;
+  try{
+    const raw = localStorage.getItem(LS_PREFIX + key);
+    return raw ? { value: raw } : null;
+  }catch(e){ return null; }
 }
 async function storageSet(key, value){
-  lsSet(key, value);                       // copia local siempre
-  if(db){
-    try{
-      await db.collection(COL).doc(key).set({ value, actualizado: new Date().toISOString() });
-      nubeOk = true;
-      setEstado('guardado en Firebase', true);
-      return;
-    }catch(e){
-      console.error('Firestore (guardar '+key+')', e);
-      nubeOk = false;
-      const msg = e.code === 'permission-denied'
-        ? 'Firebase rechazó el guardado (revisa las reglas de Firestore)'
-        : 'No se pudo guardar en Firebase: ' + (e.code || e.message);
-      setEstado(msg, false);
-      alert(msg + '\n\nLos datos quedaron solo en este navegador.');
-    }
+  if(CLOUD){
+    try{ await window.storage.set(key, value, SHARED); return; }
+    catch(e){ /* si falla la nube, seguimos con localStorage */ }
   }
+  try{ localStorage.setItem(LS_PREFIX + key, value); }
+  catch(e){ console.error('error guardando '+key, e); }
 }
 
 async function loadData(){
+  let okLectura = true;
   try{
     const p = await storageGet('productos');
     productos = p ? JSON.parse(p.value) : [];
-  }catch(e){ productos = []; }
+  }catch(e){ productos = []; okLectura = false; }
   try{
     const d = await storageGet('despachos');
     despachos = d ? JSON.parse(d.value) : [];
-  }catch(e){ despachos = []; }
+  }catch(e){ despachos = []; okLectura = false; }
   try{
     const i = await storageGet('ingresos');
     ingresos = i ? JSON.parse(i.value) : [];
-  }catch(e){ ingresos = []; }
-  if(nubeOk) setEstado('datos en Firebase (compartidos con el equipo)', true);
-  else if(!db) setEstado('datos guardados en este navegador');
+  }catch(e){ ingresos = []; okLectura = false; }
+  // limpia descuentos/ingresos de productos eliminados antes (solo si la lectura fue correcta)
+  if(okLectura){
+    const existe = d => productos.some(p => d.itemId ? p.id === d.itemId : p.nombre.toLowerCase() === (d.item||'').toLowerCase());
+    const dOk = despachos.filter(existe);
+    const iOk = ingresos.filter(i => productos.some(p => p.nombre.toLowerCase() === (i.item||'').toLowerCase()));
+    if(dOk.length !== despachos.length){ despachos = dOk; await saveDespachos(); }
+    if(iOk.length !== ingresos.length){ ingresos = iOk; await saveIngresos(); }
+  }
+  $('clockStatus').textContent = CLOUD ? 'datos compartidos con el equipo' : 'datos guardados en este navegador';
   renderAll();
-  escucharNube();
-}
-
-// cambios hechos desde otro equipo/navegador se reflejan solos
-function escucharNube(){
-  if(!db || !nubeOk) return;
-  const mapa = { productos: v=>{ productos = v; }, despachos: v=>{ despachos = v; }, ingresos: v=>{ ingresos = v; } };
-  Object.keys(mapa).forEach(key=>{
-    db.collection(COL).doc(key).onSnapshot(snap=>{
-      if(!snap.exists || snap.metadata.hasPendingWrites) return;
-      try{
-        const v = JSON.parse(snap.data().value);
-        if(JSON.stringify(v) === JSON.stringify(key==='productos'?productos:key==='despachos'?despachos:ingresos)) return;
-        mapa[key](v); lsSet(key, snap.data().value);
-        renderAll();
-      }catch(e){}
-    }, e=>console.error('Firestore (escuchar '+key+')', e));
-  });
 }
 
 async function saveProductos(){ await storageSet('productos', JSON.stringify(productos)); }
 async function saveDespachos(){ await storageSet('despachos', JSON.stringify(despachos)); }
 async function saveIngresos(){ await storageSet('ingresos', JSON.stringify(ingresos)); }
+if(CLOUD) setInterval(loadData, 15000);
 
 // ---------- NAV ----------
 document.querySelectorAll('.nav-btn').forEach(btn=>{
@@ -848,7 +761,7 @@ async function agregarProducto(){
 
   await saveProductos();
   await saveIngresos();
-  $('p-fecha').value = fechaHoy(); $('p-cliente').value=''; $('p-nombre').value=''; $('p-oc').value=''; $('p-cantidad').value=''; $('p-monto').value='';
+  $('p-fecha').value = fechaHoy(); $('p-cliente').value=''; $('p-nombre').value=''; $('p-oc').value=''; $('p-cantidad').value=''; $('p-monto').value=''; $('p-monto-igv').value='';
   renderDespachoStock(); renderHistorial();
 }
 
@@ -877,6 +790,7 @@ document.addEventListener('keydown', e=>{
   if(e.key === 'Escape') document.querySelectorAll('.modal-overlay.show').forEach(ov=>cerrarModal(ov.id));
 });
 
+const histAbiertos = new Set();   // productos con el desplegable abierto
 function fechaDMY(k){
   return /^\d{4}-\d{2}-\d{2}$/.test(k||'') ? k.slice(8,10)+'/'+k.slice(5,7)+'/'+k.slice(0,4) : (k||'—');
 }
@@ -885,6 +799,14 @@ function fechaRegistro(p){
   if(p.fecha) return p.fecha;
   const f = ingresos.filter(i=>(i.item||'').toLowerCase()===p.nombre.toLowerCase() && i.fecha).map(i=>i.fecha).sort();
   return f[0] || '';
+}
+
+// Total general = Monto original x Cantidad guardada original
+function totalGeneralProducto(p){
+  const hist = despachosDeProducto(p.id);
+  const cantIni = redondear(p.stock + hist.reduce((a,d)=>a+d.cantidad,0));
+  const montoIni = tieneTotal(p) ? totalSaldo(p) + hist.reduce((a,d)=>a+(d.total||0),0) : 0;
+  return Math.round(montoIni * cantIni * 100) / 100;
 }
 
 function renderDespachoStock(){
@@ -898,41 +820,21 @@ function renderDespachoStock(){
   $('despacho-stock-count').textContent = lista.length ? `(${lista.length})` : '';
   $('despacho-stock-empty').style.display = lista.length ? 'none' : 'block';
 
-  // Cantidad de bloques "Registro N": uno por cada descuento (el que más tenga), mínimo 1
-  const hists = {};
-  lista.forEach(p=>{ hists[p.id] = despachosDeProducto(p.id); });
-  const nBloques = Math.max(1, ...lista.map(p=>hists[p.id].length));
-  let h1 = '<tr><th class="g1" colspan="6">Registro</th>';
-  for(let k=0;k<nBloques;k++) h1 += `<th class="g2 bk${k%2}" colspan="4">Registro ${k+2}</th>`;
-  h1 += '<th class="gx acc-h" rowspan="2">Acciones</th></tr>';
-  let h2 = '<tr><th>Fecha</th><th>Cliente</th><th>Item</th><th>Orden de compra</th><th class="r">Monto</th><th class="r">Cantidad guardada</th>';
-  for(let k=0;k<nBloques;k++){ const c='bk'+(k%2); h2 += `<th class="s2 sep ${c}">Fecha</th><th class="s2 ${c}">Guía</th><th class="s2 r ${c}">Cant. a descontar</th><th class="s2 r ${c}">Diferencia</th>`; }
-  h2 += '</tr>';
-  $('thead-despacho').innerHTML = h1 + h2;
-
   lista.forEach(p=>{
-    const hist = hists[p.id];
+    const hist = despachosDeProducto(p.id);
     const descontado = redondear(hist.reduce((s,d)=>s+d.cantidad,0));
     const inicial = redondear(p.stock + descontado);                 // cantidad guardada original
     const montoIni = tieneTotal(p) ? Math.round((totalSaldo(p) + hist.reduce((s,d)=>s+(d.total||0),0)) * 100) / 100 : null;
 
-    // Un bloque (Fecha, Guía, Cantidad, Diferencia) por cada descuento, de izquierda a derecha
-    let corriente = inicial;
-    let regs = '';
-    for(let k=0;k<nBloques;k++){
-      const d = hist[k];
-      const c = 'bk'+(k%2);
-      if(d){
-        corriente = redondear(corriente - d.cantidad);
-        regs += `
-      <td class="fecha sep ${c}">${escapeHtml(fechaDMY(d.fechaGuia))}</td>
-      <td class="guia ${c}">${d.guia ? `<span class="chip-guia">${escapeHtml(d.guia)}</span>` : '<span class="nada">—</span>'}</td>
-      <td class="r desc ${c}"><span class="menos">− ${fmt(d.cantidad)}</span></td>
-      <td class="r dif ${c}"><span class="saldo ${corriente<=0?'low':''}">${fmt(corriente)}</span></td>`;
-      } else {
-        regs += `<td class="sep vacio ${c}">—</td><td class="vacio ${c}">—</td><td class="r vacio ${c}">—</td><td class="r vacio ${c}">—</td>`;
-      }
-    }
+    const ultimo = hist[hist.length-1];
+    const abierto = histAbiertos.has(p.id);
+    const chev = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+    const reg2 = ultimo ? `
+      <td class="fecha sep">${escapeHtml(fechaDMY(ultimo.fechaGuia))}</td>
+      <td class="guia">${escapeHtml(ultimo.guia||'—')}</td>
+      <td class="r desc">− ${fmt(ultimo.cantidad)}</td>
+      <td class="r dif ${p.stock<=0?'low':''}"><div class="dif-cell">${hist.length>1 ? `<button class="hist-btn ${abierto?'open':''}" onclick="toggleHist('${p.id}')" title="Ver descuentos anteriores">+${hist.length-1} ${chev}</button>` : ''}<span>${fmt(p.stock)}</span></div></td>`
+      : `<td class="sep vacio">—</td><td class="vacio">—</td><td class="r vacio">—</td><td class="r vacio">—</td>`;
 
     const tr = document.createElement('tr');
     tr.className = 'main';
@@ -942,8 +844,9 @@ function renderDespachoStock(){
       <td class="item">${escapeHtml(p.nombre)}</td>
       <td>${p.oc ? `<span class="oc">${escapeHtml(p.oc)}</span>` : '—'}</td>
       <td class="r monto">${montoIni !== null ? `<small>S/</small>${fmtMoney(montoIni)}` : '—'}</td>
+      <td class="r monto">${montoIni !== null ? `<small>S/</small>${fmtMoney(conIGV(montoIni))}` : '—'}</td>
       <td class="r"><span class="qty">${fmt(inicial)}</span></td>
-      ${regs}
+      ${reg2}
       <td class="acc">
         <div class="row-actions">
           <button class="btn sm" onclick="abrirDescontar('${p.id}')">Descontar</button>
@@ -952,7 +855,29 @@ function renderDespachoStock(){
         </div>
       </td>`;
     tbl.appendChild(tr);
+
+    // Desplegable abajo: descuentos anteriores (el más reciente va primero)
+    if(abierto && hist.length > 1){
+      let corriente = inicial;
+      const previos = hist.slice(0,-1).map(d=>{ corriente = redondear(corriente - d.cantidad); return { d, dif: corriente }; }).reverse();
+      previos.forEach(({d,dif},i)=>{
+        const th = document.createElement('tr');
+        th.className = 'hist';
+        th.innerHTML = `
+          <td class="hl" colspan="7">${i===0 ? 'Descuentos anteriores' : ''}</td>
+          <td class="fecha sep">${escapeHtml(fechaDMY(d.fechaGuia))}</td>
+          <td class="guia">${escapeHtml(d.guia||'—')}</td>
+          <td class="r desc">− ${fmt(d.cantidad)}</td>
+          <td class="r dif ${dif<=0?'low':''}">${fmt(dif)}</td>
+          <td></td>`;
+        tbl.appendChild(th);
+      });
+    }
   });
+}
+function toggleHist(id){
+  if(histAbiertos.has(id)) histAbiertos.delete(id); else histAbiertos.add(id);
+  renderDespachoStock();
 }
 $('d-buscar').addEventListener('input', renderDespachoStock);
 
@@ -1067,182 +992,57 @@ async function registrarDespacho(){
   } finally { registrando = false; }
 }
 
-// ----- EDITAR (ficha: Registro, Registro 2, 3, 4… todos editables) -----
-function maskEl(el){
-  el.addEventListener('input', ()=>{
-    let raw = el.value.replace(/,/g,'').replace(/[^0-9.]/g,'');
-    const firstDot = raw.indexOf('.');
-    if(firstDot !== -1) raw = raw.slice(0, firstDot+1) + raw.slice(firstDot+1).replace(/\./g,'');
-    let [intPart, decPart] = raw.split('.');
-    intPart = (intPart || '').replace(/^0+(?=\d)/,'');
-    const f = intPart ? intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : (decPart !== undefined ? '0' : '');
-    el.value = decPart !== undefined ? f + '.' + decPart : f;
-  });
+// ----- EDITAR -----
+function calcularTotalEdicion(){
+  const c = numVal('e-cantidad'), u = numVal('e-unitario');
+  const total = (isFinite(c) ? c : 0) * (isFinite(u) ? u : 0);
+  $('e-total').value = total ? fmtMoney(total) : '';
 }
-const numEl = el => { const raw=(el.value||'').toString().replace(/,/g,'').trim(); return raw===''?NaN:parseFloat(raw); };
-const fmtIn = n => Number(n).toLocaleString('en-US', {maximumFractionDigits:4});
-
-function filaDescuentoHtml(d){
-  const trash = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>';
-  return `
-    <div class="ficha-sec" data-did="${d.id}">
-      <div class="ficha-head"><span class="ttl">Registro</span>
-        <button class="icon-btn del" type="button" title="Quitar este descuento" aria-label="Quitar este descuento" onclick="quitarDescuentoEdit(this)">${trash}</button>
-      </div>
-      <div class="ficha-body fgrid">
-        <div><label>Fecha</label><input class="ed-fecha" type="date" value="${escapeHtml(d.fechaGuia||'')}"></div>
-        <div><label>Guía</label><input class="ed-guia" value="${escapeHtml(d.guia||'')}" placeholder="N° de guía"></div>
-        <div><label>Cantidad de descontar</label><input class="ed-cant" type="text" inputmode="decimal" value="${fmtIn(d.cantidad)}" autocomplete="off"></div>
-        <div><label>Diferencia</label><input class="ed-dif" readonly></div>
-      </div>
-    </div>`;
-}
+$('e-cantidad').addEventListener('input', calcularTotalEdicion);
+$('e-unitario').addEventListener('input', calcularTotalEdicion);
 
 function abrirEditar(id){
   const p = productos.find(x=>x.id===id);
   if(!p) return;
   editarId = id;
-  const hist = despachosDeProducto(id);
-  const descontado = redondear(hist.reduce((s,d)=>s+d.cantidad,0));
-  const inicial = redondear(p.stock + descontado);
-  const montoIni = tieneTotal(p) ? Math.round((totalSaldo(p) + hist.reduce((s,d)=>s+(d.total||0),0)) * 100) / 100 : 0;
-
-  $('e-titulo').textContent = p.nombre;
-  $('e-fecha').value = fechaRegistro(p) || fechaHoy();
   $('e-cliente').value = p.cliente || '';
   $('e-nombre').value = p.nombre || '';
-  $('e-oc').value = p.oc || '';
-  $('e-monto').value = montoIni ? Number(montoIni).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}) : '';
-  $('e-cantidad').value = fmtIn(inicial);
-
-  const box = $('e-descuentos');
-  box.innerHTML = hist.length ? hist.map(filaDescuentoHtml).join('')
-    : '<div class="empty" style="padding:14px 4px;">Todavía no hay descuentos en este producto.</div>';
-  box.querySelectorAll('.ed-cant').forEach(maskEl);
-  box.querySelectorAll('input').forEach(i=>i.addEventListener('input', refrescarEdicion));
+  $('e-cantidad').value = Number(p.stock).toLocaleString('en-US', {maximumFractionDigits:4});
+  $('e-un').value = p.un || '';
+  $('e-descripcion').value = p.descripcion || '';
+  $('e-unitario').value = p.unitario ? String(p.unitario) : '';
   $('e-msg').classList.remove('show');
-  refrescarEdicion();
+  calcularTotalEdicion();
   abrirModal('modal-editar');
 }
-
-function quitarDescuentoEdit(btn){
-  const sec = btn.closest('.ficha-sec');
-  sec.dataset.del = '1';
-  sec.style.display = 'none';
-  refrescarEdicion();
-}
-
-function seccionesEdicion(){
-  return Array.from($('e-descuentos').querySelectorAll('.ficha-sec')).filter(x=>x.dataset.del !== '1');
-}
-
-// Recalcula números y numeración dentro de la ficha (sin guardar nada)
-function refrescarEdicion(){
-  if(!editarId) return;
-  const cant = numVal('e-cantidad');
-  const total = isFinite(cant) ? cant : 0;
-  let corriente = total, sumDesc = 0;
-  seccionesEdicion().forEach((sec,i)=>{
-    sec.classList.remove('bk0','bk1'); sec.classList.add('bk'+(i%2));
-    sec.querySelector('.ttl').textContent = 'Registro ' + (i+2);
-    const c = numEl(sec.querySelector('.ed-cant'));
-    const cc = isFinite(c) ? c : 0;
-    sumDesc += cc;
-    corriente = redondear(corriente - cc);
-    const dif = sec.querySelector('.ed-dif');
-    dif.value = fmtIn(corriente);
-    dif.classList.toggle('neg', corriente < 0);
-  });
-  sumDesc = redondear(sumDesc);
-  $('ek-ing').textContent = fmt(total);
-  $('ek-desc').textContent = fmt(sumDesc);
-  $('ek-saldo').textContent = fmt(redondear(total - sumDesc));
-  $('ek-saldo-box').classList.toggle('warn', total - sumDesc < 0);
-}
-$('e-cantidad').addEventListener('input', refrescarEdicion);
 
 async function guardarEdicion(){
   const msg = $('e-msg');
   const p = productos.find(x=>x.id===editarId);
   if(!p){ cerrarModal('modal-editar'); return; }
-
   const nombre = $('e-nombre').value.trim();
-  const cliente = $('e-cliente').value.trim();
-  const oc = $('e-oc').value.trim();
-  const fecha = $('e-fecha').value || fechaRegistro(p) || fechaHoy();
   const cantidad = numVal('e-cantidad');
-  const monto = numVal('e-monto');
-  const montoOk = isFinite(monto) && monto > 0 ? Math.round(monto*100)/100 : 0;
+  const unitario = numVal('e-unitario');
 
   if(!nombre){ showMsg(msg, 'Ingresa el item.', false); return; }
-  if(isNaN(cantidad) || cantidad <= 0){ showMsg(msg, 'Ingresa una cantidad guardada válida.', false); return; }
-  if(isFinite(monto) && monto < 0){ showMsg(msg, 'Ingresa un monto válido.', false); return; }
+  if(isNaN(cantidad) || cantidad < 0){ showMsg(msg, 'Ingresa una cantidad válida.', false); return; }
   if(productos.some(x => x.id !== p.id && x.nombre.toLowerCase() === nombre.toLowerCase())){
     showMsg(msg, `Ya existe otro producto con el item "${nombre}".`, false); return;
   }
 
-  // leer los descuentos editados
-  const secs = seccionesEdicion();
-  const nuevos = [];
-  for(let i=0;i<secs.length;i++){
-    const sec = secs[i];
-    const c = numEl(sec.querySelector('.ed-cant'));
-    const f = sec.querySelector('.ed-fecha').value;
-    if(isNaN(c) || c <= 0){ showMsg(msg, `Registro ${i+2}: ingresa una cantidad a descontar válida.`, false); return; }
-    if(!f){ showMsg(msg, `Registro ${i+2}: ingresa la fecha.`, false); return; }
-    nuevos.push({ id: sec.dataset.did, cantidad: c, fechaGuia: f, guia: sec.querySelector('.ed-guia').value.trim() });
-  }
-  const sumDesc = redondear(nuevos.reduce((s,d)=>s+d.cantidad,0));
-  if(sumDesc > cantidad){
-    showMsg(msg, `Los descuentos (${fmt(sumDesc)}) superan la cantidad guardada (${fmt(cantidad)}).`, false); return;
-  }
-
-  const nombreViejo = p.nombre.toLowerCase();
-
-  // --- despachos: quitar los eliminados y actualizar los editados ---
-  const idsQuedan = new Set(nuevos.map(d=>d.id));
-  despachos = despachos.filter(d => d.itemId !== p.id || idsQuedan.has(d.id));
-  const orden = nuevos.slice().sort((a,b)=> a.fechaGuia.localeCompare(b.fechaGuia) || nuevos.indexOf(a)-nuevos.indexOf(b));
-  // monto de cada descuento = su parte proporcional (acumulado, sin errores de redondeo)
-  const unit = montoOk ? montoOk / cantidad : 0;
-  const mapaTotal = {};
-  let cumQ = 0, cumM = 0;
-  orden.forEach(d=>{
-    cumQ = redondear(cumQ + d.cantidad);
-    const nuevoCum = cumQ >= cantidad ? montoOk : Math.round(cumQ * unit * 100) / 100;
-    mapaTotal[d.id] = Math.round((nuevoCum - cumM) * 100) / 100;
-    cumM = nuevoCum;
-  });
-  despachos.forEach(d=>{
-    if(d.itemId !== p.id) return;
-    const n = nuevos.find(x=>x.id === d.id);
-    d.cantidad = n.cantidad; d.fechaGuia = n.fechaGuia; d.guia = n.guia;
-    d.total = montoOk ? mapaTotal[d.id] : 0;
-    d.item = nombre; d.empresa = cliente; d.oc = oc; d.factura = oc;
-  });
-
-  // --- producto ---
-  p.nombre = nombre; p.cliente = cliente; p.oc = oc; p.fecha = fecha;
-  p.stock = redondear(cantidad - sumDesc);
-  p.unitario = montoOk ? Math.round(unit * 1000000) / 1000000 : 0;
-  if(montoOk) p.total = Math.round((montoOk - cumM) * 100) / 100; else delete p.total;
-
-  // --- historial de ingresos (Dashboard): que refleje la corrección ---
-  const ing = ingresos.filter(i => (i.item||'').toLowerCase() === nombreViejo);
-  ing.forEach(i=>{ i.item = nombre; i.cliente = cliente; i.oc = oc; });
-  if(!ing.length){
-    if(montoOk) ingresos.push({ id: uid(), cliente, item: nombre, oc, cantidad, monto: montoOk, fecha, registrado: new Date().toISOString() });
-  } else {
-    const sumaVieja = Math.round(ing.reduce((s,i)=>s+(Number(i.monto)||0),0)*100)/100;
-    const ultimo = ing[ing.length-1];
-    ultimo.monto = Math.max(0, Math.round(((Number(ultimo.monto)||0) + (montoOk - sumaVieja)) * 100) / 100);
-    ing[0].fecha = fecha;
-    if(ing.length === 1) ing[0].cantidad = cantidad;
-  }
+  const cambioCalc = (cantidad !== p.stock) || ((isFinite(unitario) ? unitario : 0) !== (p.unitario || 0));
+  p.cliente = $('e-cliente').value.trim();
+  p.nombre = nombre;
+  p.stock = cantidad;
+  p.un = $('e-un').value.trim();
+  p.descripcion = $('e-descripcion').value.trim();
+  p.unitario = isFinite(unitario) ? unitario : 0;
+  if(cambioCalc){ if(p.unitario) p.total = Math.round(cantidad * p.unitario * 100) / 100; else delete p.total; }
+  // si cambió el nombre del item, los despachos ya registrados lo siguen mostrando bien en el Dashboard
+  despachos.forEach(d=>{ if(d.itemId === p.id) d.item = nombre; });
 
   await saveProductos();
   await saveDespachos();
-  await saveIngresos();
   cerrarModal('modal-editar');
   renderDespachoStock(); renderHistorial();
   showMsg($('despacho-msg'), `Cambios guardados en "${nombre}".`, true);
@@ -1263,7 +1063,12 @@ async function confirmarEliminar(){
   const p = productos.find(x=>x.id===id);
   const nombre = p ? p.nombre : '';
   productos = productos.filter(x=>x.id !== id);
+  // también se borra todo su historial (descuentos e ingresos) para que el Dashboard quede limpio
+  despachos = despachos.filter(d => d.itemId !== id);
+  if(nombre) ingresos = ingresos.filter(i => (i.item||'').toLowerCase() !== nombre.toLowerCase());
   await saveProductos();
+  await saveDespachos();
+  await saveIngresos();
   if(descontarId === id) cerrarModal('modal-descontar');
   cerrarModal('modal-eliminar');
   renderDespachoStock(); renderHistorial();
@@ -1283,7 +1088,7 @@ function monthLabel(key){
 }
 
 function renderHistorialFilters(){
-  const meses = Array.from(new Set(despachos.map(d=>monthKey(d.fechaGuia)).concat(ingresos.map(i=>monthKey(i.fecha))))).sort().reverse();
+  const meses = Array.from(new Set(despachos.map(d=>monthKey(d.fechaGuia)))).sort().reverse();
   const selMes = $('h-mes');
   const curMes = selMes.value;
   selMes.innerHTML = '<option value="">Todos los meses</option>' +
@@ -1292,60 +1097,56 @@ function renderHistorialFilters(){
 
   const selProd = $('h-producto');
   const curProd = selProd.value;
-  const nombres = Array.from(new Set(despachos.map(d=>d.item).concat(ingresos.map(i=>i.item)).filter(Boolean))).sort();
+  const nombres = Array.from(new Set(despachos.map(d=>d.item))).sort();
   selProd.innerHTML = '<option value="">Todos los productos</option>' +
     nombres.map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join('');
   if(nombres.includes(curProd)) selProd.value = curProd;
 
   const selCli = $('h-cliente');
   const curCli = selCli.value;
-  const clientes = Array.from(new Set(despachos.map(d=>d.empresa).concat(ingresos.map(i=>i.cliente)).filter(Boolean))).sort();
+  const clientes = Array.from(new Set(despachos.map(d=>d.empresa).filter(Boolean))).sort();
   selCli.innerHTML = '<option value="">Todos los clientes</option>' +
     clientes.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
   if(clientes.includes(curCli)) selCli.value = curCli;
 }
 
-function renderChartDia(){
+function renderChartDia(lista){
   const box = $('chart-dia');
-  const money = n => 'S/ ' + fmtMoney(n);
-  const money0 = n => Number(n).toLocaleString('en-US', {maximumFractionDigits:0});
-  const r2 = n => Math.round(n*100)/100;
 
-  // Todo sale del historial de INGRESOS (Registro): no cambia al descontar, editar o eliminar productos
-  const fMes = $('h-mes').value, fProd = $('h-producto').value, fCli = $('h-cliente').value;
-  const existentes = new Set(productos.map(p=>p.nombre.toLowerCase()));
-  const cliDe = {}; productos.forEach(p=>{ cliDe[p.nombre.toLowerCase()] = p.cliente||''; });
-  let lista = ingresos.filter(i=>existentes.has((i.item||'').toLowerCase()));
-  if(fMes) lista = lista.filter(i=>monthKey(i.fecha)===fMes);
-  if(fProd) lista = lista.filter(i=>i.item===fProd);
-  if(fCli) lista = lista.filter(i=>i.cliente===fCli);
-
-  const nRegistros = lista.length;
-  // Cliente "normalizado": sin tildes, mayúsculas, puntos ni espacios de más, ni sufijos como S.A.C.
-  const normCli = c => (c||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()
-    .replace(/\./g,'').replace(/[^a-z0-9 ]/g,' ').replace(/\b(sac|sa|srl|eirl|saa|ltda)\b/g,' ').replace(/\s+/g,' ').trim();
-  const nEmpresas = new Set(lista.map(i=>normCli(cliDe[(i.item||'').toLowerCase()])).filter(Boolean)).size;
-  const montoTotal = r2(lista.reduce((s,i)=>s+(Number(i.monto)||0),0));
-
+  // KPIs de stock (respetan el filtro de producto, igual que "Resumen por item")
+  const filtroProd = $('h-producto').value;
+  const prods = filtroProd ? productos.filter(p=>p.nombre===filtroProd) : productos;
+  // Monto total = Monto x Cantidad guardada de cada registro
+  const montoTotal = Math.round(prods.reduce((t,p)=>t+totalGeneralProducto(p),0) * 100) / 100;
+  // Total de clientes distintos
+  const totalClientes = new Set(prods.map(p=>(p.cliente||'').trim().toLowerCase()).filter(Boolean)).size;
   const kpisHtml = `
-    <div class="dkpis">
-      <div class="dkpi desc"><div class="v">${nEmpresas.toLocaleString('en-US')}</div><div class="l">Clientes en total</div></div>
-      <div class="dkpi pend"><div class="v">${money(montoTotal)}</div><div class="l">Monto total</div></div>
+    <div class="dkpis dkpis2">
+      <div class="dkpi"><div class="v">S/ ${fmtMoney(montoTotal)}</div><div class="l">Monto total</div></div>
+      <div class="dkpi desc"><div class="v">${totalClientes}</div><div class="l">Total de clientes</div></div>
     </div>`;
 
   const totales = {};
-  lista.forEach(i=>{ const k = i.fecha || 'Sin fecha'; totales[k] = (totales[k]||0) + (Number(i.monto)||0); });
+  lista.forEach(d=>{
+    const k = d.fechaGuia || 'Sin fecha';
+    totales[k] = (totales[k]||0) + d.cantidad;
+  });
   const dias = Object.keys(totales).sort();
   if(!dias.length){ box.innerHTML = kpisHtml + '<div class="empty">Sin datos para graficar.</div>'; return; }
 
+  const totalGeneral = redondear(dias.reduce((s,k)=>s+totales[k],0));
   let acumulado = 0;
-  const filas = dias.map(k=>{ acumulado = r2(acumulado + totales[k]); return { fecha:k, valor: r2(totales[k]), acumulado }; });
+  const filas = dias.map(k=>{ acumulado = redondear(acumulado + totales[k]); return { fecha:k, valor: redondear(totales[k]), acumulado }; });
   const ultimas = filas.slice(-14);
   const n = ultimas.length;
   const maxValor = Math.max(...ultimas.map(f=>f.valor)) || 1;
+  const fechaCorta = k => /^\d{4}-\d{2}-\d{2}$/.test(k) ? k.slice(8,10)+'/'+k.slice(5,7)+'/'+k.slice(0,4) : k;
   const diaMes = k => /^\d{4}-\d{2}-\d{2}$/.test(k) ? k.slice(8,10)+'/'+k.slice(5,7) : k;
+  const h = new Date();
+  const hoy = h.getFullYear()+'-'+String(h.getMonth()+1).padStart(2,'0')+'-'+String(h.getDate()).padStart(2,'0');
 
-  const W=720, H=250, L=60, R=64, T=26, B=30;
+  // ----- gráfico SVG: barras = descuento del día (eje izq.), línea = total acumulado (eje der.) -----
+  const W=720, H=240, L=42, R=46, T=22, B=30;
   const iw=W-L-R, ih=H-T-B;
   const niceMax = v=>{ const p=Math.pow(10,Math.floor(Math.log10(v))); const m=v/p; return (m<=1?1:m<=2?2:m<=5?5:10)*p; };
   const maxB = niceMax(Math.max(maxValor, 1));
@@ -1355,7 +1156,7 @@ function renderChartDia(){
   const bw = iw/n;
   const barW = Math.min(44, bw*0.55);
   const xC = i => L + bw*(i+0.5);
-  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Monto ingresado por día y total acumulado">
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Descuento por día y total acumulado">
     <defs>
       <linearGradient id="gbarDia" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#0284c7"/></linearGradient>
       <linearGradient id="gareaDia" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b2438" stop-opacity="0.10"/><stop offset="1" stop-color="#0b2438" stop-opacity="0"/></linearGradient>
@@ -1363,15 +1164,13 @@ function renderChartDia(){
   for(let i=0;i<=4;i++){
     const y = T + ih - ih*i/4;
     svg += `<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#cfe6f5" stroke-width="1" ${i? 'stroke-dasharray="3 4"' : ''}/>`;
-    svg += `<text x="${L-8}" y="${y+3.5}" text-anchor="end" font-size="10" fill="#0284c7" font-family="monospace">${money0(maxB*i/4)}</text>`;
-    svg += `<text x="${W-R+8}" y="${y+3.5}" text-anchor="start" font-size="10" fill="#0b2438" font-family="monospace">${money0(maxA*i/4)}</text>`;
+    svg += `<text x="${L-8}" y="${y+3.5}" text-anchor="end" font-size="10" fill="#0284c7" font-family="monospace">${fmt(maxB*i/4)}</text>`;
+    svg += `<text x="${W-R+8}" y="${y+3.5}" text-anchor="start" font-size="10" fill="#0b2438" font-family="monospace">${fmt(maxA*i/4)}</text>`;
   }
   ultimas.forEach((f,i)=>{
     const y = yB(f.valor), hh = Math.max(2, T+ih-y);
     svg += `<rect x="${xC(i)-barW/2}" y="${T+ih-hh}" width="${barW}" height="${hh}" rx="5" fill="url(#gbarDia)"/>`;
-    // etiqueta dentro de la barra si es alta, encima si es baja (así no choca con la línea)
-    if(hh > 34) svg += `<text x="${xC(i)}" y="${T+ih-hh+15}" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" font-family="monospace">${fmtMoney(f.valor)}</text>`;
-    else svg += `<text x="${xC(i)}" y="${T+ih-hh-5}" text-anchor="middle" font-size="10" font-weight="700" fill="#0284c7" font-family="monospace">${fmtMoney(f.valor)}</text>`;
+    svg += `<text x="${xC(i)}" y="${T+ih-hh-5}" text-anchor="middle" font-size="10" font-weight="700" fill="#0284c7" font-family="monospace">${fmt(f.valor)}</text>`;
   });
   const pts = ultimas.map((f,i)=>[xC(i), yA(f.acumulado)]);
   if(n>1){
@@ -1381,23 +1180,53 @@ function renderChartDia(){
   }
   pts.forEach((q,i)=>{
     svg += `<circle cx="${q[0]}" cy="${q[1]}" r="${i===n-1?5:3.5}" fill="#fff" stroke="#0b2438" stroke-width="2"/>`;
-    if(i===n-1) svg += `<text x="${q[0]}" y="${q[1]-11}" text-anchor="middle" font-size="11" font-weight="700" fill="#0b2438" font-family="monospace">${fmtMoney(ultimas[i].acumulado)}</text>`;
+    if(i===n-1) svg += `<text x="${q[0]}" y="${q[1]-10}" text-anchor="middle" font-size="11" font-weight="700" fill="#0b2438" font-family="monospace">${fmt(ultimas[i].acumulado)}</text>`;
     svg += `<text x="${q[0]}" y="${H-10}" text-anchor="middle" font-size="10" fill="#5c7c93" font-family="monospace">${escapeHtml(diaMes(ultimas[i].fecha))}</text>`;
   });
   svg += `</svg>`;
 
   box.innerHTML = kpisHtml + `
     <div class="dchart-head">
-      <div class="t">Monto total en el rango filtrado: <b>${money(montoTotal)}</b>${n<filas.length ? ' · mostrando los últimos '+n+' días' : ''}</div>
-      <div class="dleg"><span><i class="sq"></i>Monto del día (eje izq.)</span><span><i class="ln"></i>Total acumulado (eje der.)</span></div>
+      <div class="t">Descontado en el rango filtrado: <b>${fmt(totalGeneral)}</b>${n<filas.length ? ' · mostrando los últimos '+n+' días' : ''}</div>
+      <div class="dleg"><span><i class="sq"></i>Descuento del día (eje izq.)</span><span><i class="ln"></i>Total acumulado (eje der.)</span></div>
     </div>
-    <div class="dchart">${svg}</div>`;
+    <div class="dchart">${svg}</div>
+    <div class="dia-grid">
+    ` + ultimas.map((f,i)=>`
+      <div class="dia-tile ${i===n-1?'last':''}">
+        <div class="fecha">${escapeHtml(fechaCorta(f.fecha))}${f.fecha===hoy?'<span class="badge">Hoy</span>':''}</div>
+        <div class="desc">${fmt(f.valor)}<small>Descuento</small></div>
+        <div class="mini"><i style="width:${f.valor/maxValor*100}%"></i></div>
+        <div class="acum">${fmt(f.acumulado)}<small>Total acum.</small></div>
+      </div>
+    `).join('') + `
+    </div>`;
   const cont = box.querySelector('.dchart');
-  if(cont) cont.scrollLeft = cont.scrollWidth;
+  if(cont) cont.scrollLeft = cont.scrollWidth; // en celular, empezar viendo los días más recientes
+}
+
+function renderResumenItem(){
+  const tbl = $('tbl-resumen-item');
+  const lista = productos.slice().sort((a,b)=>a.nombre.localeCompare(b.nombre));
+  $('resumen-item-empty').style.display = lista.length ? 'none' : 'block';
+  tbl.innerHTML = lista.map(p=>{
+    const descontado = redondear(despachosDeProducto(p.id).reduce((s,d)=>s+d.cantidad,0));
+    const pendiente = p.stock;
+    const totalIngresado = redondear(pendiente + descontado);
+    return `
+      <tr>
+        <td>${escapeHtml(p.nombre)}</td>
+        <td class="num">${fmt(totalIngresado)}</td>
+        <td class="num">${fmt(descontado)}</td>
+        <td class="num ${pendiente<=0 ? 'stock-low' : 'stock-ok'}">${fmt(pendiente)}</td>
+      </tr>
+    `;
+  }).join('');
 }
 
 function renderHistorial(){
   renderHistorialFilters();
+  renderResumenItem();
 
   const filtroMes = $('h-mes').value;
   const filtroProd = $('h-producto').value;
@@ -1409,7 +1238,7 @@ function renderHistorial(){
   if(filtroCli) lista = lista.filter(d=>d.empresa===filtroCli);
   lista.sort((a,b)=> new Date(b.fechaGuia||0) - new Date(a.fechaGuia||0));
 
-  renderChartDia();
+  renderChartDia(lista);
 
   const body = $('historial-body');
   if(!lista.length){
@@ -1474,6 +1303,69 @@ function exportarExcel(){
   a.href = url; a.download = 'despachos_panel_peru.xls';
   a.click();
   URL.revokeObjectURL(url);
+}
+
+// Descarga la tabla de Nuevo despacho (REGISTRO + REGISTRO 2) en Excel
+function descargarExcelRegistro(){
+  const msg = $('despacho-msg');
+  if(!productos.length){ showMsg(msg, 'No hay productos para exportar.', false); return; }
+  const esc = v => String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const num = (v,d=2) => (v===null || v===undefined || v==='') ? '' : Number(v).toFixed(d);
+  const lista = productos.slice().sort((a,b)=> (fechaRegistro(a)||'').localeCompare(fechaRegistro(b)||'') || a.nombre.localeCompare(b.nombre));
+
+  const th = 'border:1px solid #777;padding:6px 8px;text-align:center;';
+  let rows = '';
+  lista.forEach(p=>{
+    const hist = despachosDeProducto(p.id);
+    const descontado = redondear(hist.reduce((x,d)=>x+d.cantidad,0));
+    const inicial = redondear(p.stock + descontado);
+    const montoIni = tieneTotal(p) ? Math.round((totalSaldo(p) + hist.reduce((x,d)=>x+(d.total||0),0)) * 100) / 100 : null;
+    const span = Math.max(1, hist.length);
+    const td = 'border:1px solid #777;padding:5px 8px;text-align:center;vertical-align:middle;';
+    const reg1 = `
+      <td rowspan="${span}" style="${td}">${esc(fechaDMY(fechaRegistro(p)))}</td>
+      <td rowspan="${span}" style="${td}font-weight:bold;">${esc(p.cliente||'')}</td>
+      <td rowspan="${span}" style="${td}font-weight:bold;">${esc(p.nombre)}</td>
+      <td rowspan="${span}" style="${td}font-weight:bold;">${esc(p.oc||'')}</td>
+      <td rowspan="${span}" style="${td}font-weight:bold;mso-number-format:'0.00';">${montoIni!==null ? num(montoIni) : ''}</td>
+      <td rowspan="${span}" style="${td}font-weight:bold;mso-number-format:'0.00';">${montoIni!==null ? num(conIGV(montoIni)) : ''}</td>
+      <td rowspan="${span}" style="${td}font-weight:bold;">${inicial}</td>`;
+    if(!hist.length){
+      rows += `<tr>${reg1}<td style="${td}"></td><td style="${td}"></td><td style="${td}"></td><td style="${td}"></td></tr>`;
+      return;
+    }
+    let corriente = inicial;
+    hist.forEach((d,i)=>{
+      corriente = redondear(corriente - d.cantidad);
+      rows += `<tr>${i===0 ? reg1 : ''}
+        <td style="${td}">${esc(fechaDMY(d.fechaGuia))}</td>
+        <td style="${td}font-weight:bold;">${esc(d.guia||'')}</td>
+        <td style="${td}font-weight:bold;">${d.cantidad}</td>
+        <td style="${td}font-weight:bold;">${corriente}</td></tr>`;
+    });
+  });
+
+  const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+    <head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>
+    <x:Name>Registro</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head>
+    <body><table style="border-collapse:collapse;font-family:Calibri,Arial;font-size:11pt;">
+      <tr>
+        <th colspan="7" style="${th}background:#0c2a40;color:#ffffff;font-size:14pt;">REGISTRO</th>
+        <th colspan="4" style="${th}background:#38bdf8;color:#08293d;font-size:14pt;">REGISTRO 2</th>
+      </tr>
+      <tr>
+        ${['FECHA','CLIENTE','ITEM','ORDEN DE COMPRA','MONTO','MONTO + IGV 18%','TOTAL GENERAL'].map(h=>`<th style="${th}background:#eef7fd;">${h}</th>`).join('')}
+        ${['FECHA','GUIA','CANTIDAD DE DESCONTAR','DIFERENCIA'].map(h=>`<th style="${th}background:#e1f2fc;">${h}</th>`).join('')}
+      </tr>
+      ${rows}
+    </table></body></html>`;
+  const blob = new Blob(['\ufeff'+html], {type:'application/vnd.ms-excel;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'registro_despachos_' + fechaHoy() + '.xls';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+  showMsg(msg, 'Excel descargado.', true);
 }
 
 function renderAll(){
