@@ -358,6 +358,8 @@
   .dia-grid{ grid-template-columns:repeat(auto-fill, minmax(165px, 1fr)); }
   .dia-tile .desc{ font-size:15px; }
   .dia-tile .acum{ font-family:var(--mono); font-size:12px; font-weight:700; color:var(--text); margin-top:7px; }
+  table.xl thead th.th-tot{ min-width:150px; white-space:normal; }
+  table.xl td.tot-final{ color:var(--accent-2); }
 </style>
 </head>
 <body>
@@ -465,8 +467,8 @@
         <div class="tbl-wrap">
         <table class="xl">
           <thead>
-            <tr><th class="g1" colspan="7">Registro</th><th class="g2" colspan="4">Registro 2</th><th class="gx" rowspan="2">Acciones</th></tr>
-            <tr><th>Fecha</th><th>Cliente</th><th>Item</th><th>Orden de compra</th><th class="r">Monto</th><th class="r">IGV 18%</th><th class="r">Total general</th><th class="s2 sep">Fecha</th><th class="s2">Guía</th><th class="s2 r">Cantidad de descontar</th><th class="s2 r">Diferencia</th></tr>
+            <tr><th class="g1" colspan="8">Registro</th><th class="g2" colspan="4">Registro 2</th><th class="gx" rowspan="2">Acciones</th></tr>
+            <tr><th>Fecha</th><th>Cliente</th><th>Item</th><th>Orden de compra</th><th class="r">Monto</th><th class="r">IGV 18%</th><th class="r">Total general</th><th class="r th-tot">Total (monto + IGV) × total general</th><th class="s2 sep">Fecha</th><th class="s2">Guía</th><th class="s2 r">Cantidad de descontar</th><th class="s2 r">Diferencia</th></tr>
           </thead>
           <tbody id="tbl-despacho-stock"></tbody>
         </table>
@@ -875,6 +877,7 @@ function renderDespachoStock(){
       <td class="r monto">${montoIni !== null ? `<small>S/</small>${fmtMoney(montoIni)}` : '—'}</td>
       <td class="r monto">${montoIni !== null ? `<small>S/</small>${fmtMoney(conIGV(montoIni))}` : '—'}</td>
       <td class="r"><span class="qty">${fmt(inicial)}</span></td>
+      <td class="r monto tot-final">${montoIni !== null ? `<small>S/</small>${fmtMoney(totalGeneralProducto(p))}` : '—'}</td>
       ${reg2}
       <td class="acc">
         <div class="row-actions">
@@ -893,7 +896,7 @@ function renderDespachoStock(){
         const th = document.createElement('tr');
         th.className = 'hist';
         th.innerHTML = `
-          <td class="hl" colspan="7">${i===0 ? 'Descuentos anteriores' : ''}</td>
+          <td class="hl" colspan="8">${i===0 ? 'Descuentos anteriores' : ''}</td>
           <td class="fecha sep">${escapeHtml(fechaDMY(d.fechaGuia))}</td>
           <td class="guia">${escapeHtml(d.guia||'—')}</td>
           <td class="r desc">− ${fmt(d.cantidad)}</td>
@@ -1368,7 +1371,8 @@ function descargarExcelRegistro(){
       <td rowspan="${span}" style="${td}font-weight:bold;">${esc(p.oc||'')}</td>
       <td rowspan="${span}" style="${td}font-weight:bold;mso-number-format:'0.00';">${montoIni!==null ? num(montoIni) : ''}</td>
       <td rowspan="${span}" style="${td}font-weight:bold;mso-number-format:'0.00';">${montoIni!==null ? num(conIGV(montoIni)) : ''}</td>
-      <td rowspan="${span}" style="${td}font-weight:bold;">${inicial}</td>`;
+      <td rowspan="${span}" style="${td}font-weight:bold;">${inicial}</td>
+      <td rowspan="${span}" style="${td}font-weight:bold;mso-number-format:'0.00';">${montoIni!==null ? num(totalGeneralProducto(p)) : ''}</td>`;
     if(!hist.length){
       rows += `<tr>${reg1}<td style="${td}"></td><td style="${td}"></td><td style="${td}"></td><td style="${td}"></td></tr>`;
       return;
@@ -1389,11 +1393,11 @@ function descargarExcelRegistro(){
     <x:Name>Registro</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head>
     <body><table style="border-collapse:collapse;font-family:Calibri,Arial;font-size:11pt;">
       <tr>
-        <th colspan="7" style="${th}background:#0c2a40;color:#ffffff;font-size:14pt;">REGISTRO</th>
+        <th colspan="8" style="${th}background:#0c2a40;color:#ffffff;font-size:14pt;">REGISTRO</th>
         <th colspan="4" style="${th}background:#38bdf8;color:#08293d;font-size:14pt;">REGISTRO 2</th>
       </tr>
       <tr>
-        ${['FECHA','CLIENTE','ITEM','ORDEN DE COMPRA','MONTO','IGV 18%','TOTAL GENERAL'].map(h=>`<th style="${th}background:#eef7fd;">${h}</th>`).join('')}
+        ${['FECHA','CLIENTE','ITEM','ORDEN DE COMPRA','MONTO','IGV 18%','TOTAL GENERAL','TOTAL (MONTO + IGV) × TOTAL GENERAL'].map(h=>`<th style="${th}background:#eef7fd;">${h}</th>`).join('')}
         ${['FECHA','GUIA','CANTIDAD DE DESCONTAR','DIFERENCIA'].map(h=>`<th style="${th}background:#e1f2fc;">${h}</th>`).join('')}
       </tr>
       ${rows}
